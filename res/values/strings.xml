@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Http Sync</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="run_button">Run...</string>
 </resources>
 <!--
 vim: tabstop=4 shiftwidth=4 expandtab softtabstop=4
