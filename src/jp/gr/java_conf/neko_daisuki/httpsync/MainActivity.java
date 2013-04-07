@@ -144,7 +144,7 @@ public class MainActivity extends Activity {
                 list.addAll(listOfLink(link));
             }
 
-            return list.toArray(new String[] {});
+            return list.toArray(new String[0]);
         }
 
         private void download(String base, String link, String dir) {
