@@ -321,15 +321,17 @@ public class MainActivity extends Activity {
             return list.toArray(new String[0]);
         }
 
-        private void download(String base, String link, String dir) {
+        private void download(Job job, String link) {
+            String base = job.url;
             String url = String.format("%s/%s", base, link);
             HttpURLConnection conn = connect(url);
             if (conn == null) {
                 return;
             }
             String name = new File(link).getName();
+            String dir = job.directory;
             String path = String.format("%s%s%s", dir, File.separator, name);
-            if (new File(path).exists()) {
+            if (!job.overwrite && new File(path).exists()) {
                 String fmt = "Skip: source=%s, destination=%s";
                 Log.i(LOG_TAG, String.format(fmt, url, path));
                 return;
@@ -386,7 +388,7 @@ public class MainActivity extends Activity {
             }
 
             for (String link: links) {
-                download(url, link, job.directory);
+                download(job, link);
             }
         }
 
