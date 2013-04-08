@@ -201,11 +201,11 @@ public class MainActivity extends Activity {
     private static class MalformedHtmlException extends Exception {
     }
 
-    private class SynchronizeTask extends AsyncTask<String, Void, Void> {
+    private class SynchronizeTask extends AsyncTask<Job[], Void, Void> {
 
-        public Void doInBackground(String... urls) {
+        public Void doInBackground(Job[]... jobs) {
             Log.i(LOG_TAG, "Synchronizing started.");
-            synchronize(urls[0]);
+            run(jobs[0]);
             Log.i(LOG_TAG, "Synchronizing ended.");
             return null;
         }
@@ -367,8 +367,10 @@ public class MainActivity extends Activity {
             Log.i(LOG_TAG, String.format(fmt, url, path));
         }
 
-        private void synchronize(String url) {
+        private void synchronize(Job job) {
             // TODO: Must show the error to a user.
+
+            String url = job.url;
             String html = readHtml(url);
             if (html == null) {
                 return;
@@ -384,7 +386,13 @@ public class MainActivity extends Activity {
             }
 
             for (String link: links) {
-                download(url, link, "/mnt/sdcard");
+                download(url, link, job.directory);
+            }
+        }
+
+        private void run(Job[] jobs) {
+            for (Job job: jobs) {
+                synchronize(job);
             }
         }
     }
@@ -399,7 +407,7 @@ public class MainActivity extends Activity {
     private class RunButtonOnClickListener implements View.OnClickListener {
 
         public void onClick(View _) {
-            new SynchronizeTask().execute("http://192.168.11.34/tom/apk");
+            new SynchronizeTask().execute(mJobs);
         }
     }
 
