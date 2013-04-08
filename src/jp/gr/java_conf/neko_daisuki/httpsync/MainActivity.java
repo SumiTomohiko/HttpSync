@@ -15,9 +15,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -38,12 +41,45 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-    private class EditButtonOnClickListener implements View.OnClickListener {
+    private class DeleteDialogOnClickListener implements DialogInterface.OnClickListener {
 
         private int mPosition;
 
-        public EditButtonOnClickListener(int position) {
+        public DeleteDialogOnClickListener(int position) {
             mPosition = position;
+        }
+
+        public void onClick(DialogInterface _, int __) {
+            deleteJob(mJobs[mPosition]);
+        }
+    }
+
+    private abstract class ListButtonOnClickListener implements View.OnClickListener {
+
+        protected int mPosition;
+
+        public ListButtonOnClickListener(int position) {
+            mPosition = position;
+        }
+
+        public abstract void onClick(View _);
+    }
+
+    private class DeleteButtonOnClickListener extends ListButtonOnClickListener {
+
+        public DeleteButtonOnClickListener(int position) {
+            super(position);
+        }
+
+        public void onClick(View _) {
+            showConfirmDialogToDelete(mPosition);
+        }
+    }
+
+    private class EditButtonOnClickListener extends ListButtonOnClickListener {
+
+        public EditButtonOnClickListener(int position) {
+            super(position);
         }
 
         public void onClick(View _) {
@@ -58,6 +94,7 @@ public class MainActivity extends Activity {
             public TextView url;
             public TextView directory;
             public Button editButton;
+            public Button deleteButton;
         }
 
         private LayoutInflater mInflater;
@@ -80,6 +117,7 @@ public class MainActivity extends Activity {
             holder.directory.setText(job.directory);
 
             holder.editButton.setOnClickListener(new EditButtonOnClickListener(position));
+            holder.deleteButton.setOnClickListener(new DeleteButtonOnClickListener(position));
 
             return convertView;
         }
@@ -99,6 +137,7 @@ public class MainActivity extends Activity {
             holder.url = findTextView(convertView, R.id.url_text);
             holder.directory = findTextView(convertView, R.id.directory_text);
             holder.editButton = findButton(convertView, R.id.edit_button);
+            holder.deleteButton = findButton(convertView, R.id.delete_button);
             convertView.setTag(holder);
             return convertView;
         }
@@ -491,6 +530,34 @@ public class MainActivity extends Activity {
         db.update(DatabaseHelper.TABLE_NAME, values, where, args);
 
         updateJobs();
+    }
+
+    private void deleteJob(Job job) {
+        SQLiteDatabase db = mDatabase.getWritableDatabase();
+        String where = String.format("%s=?", DatabaseHelper.Columns._ID);
+        String[] args = new String[] { Long.toString(job.id) };
+        db.delete(DatabaseHelper.TABLE_NAME, where, args);
+
+        updateJobs();
+    }
+
+    private void showConfirmDialogToDelete(int position) {
+        Job job = mJobs[position];
+        String url = job.url;
+        String directory = job.directory;
+        Resources res = getResources();
+        String fmt = res.getString(R.string.delete_confirm_format);
+        String positive = res.getString(R.string.positive);
+        String negative = res.getString(R.string.negative);
+        String msg = String.format(fmt, url, directory, positive, negative);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.delete_dialog_title);
+        builder.setMessage(msg);
+        builder.setPositiveButton(R.string.positive, new DeleteDialogOnClickListener(position));
+        builder.setNegativeButton(R.string.negative, null);
+
+        builder.create().show();
     }
 }
 

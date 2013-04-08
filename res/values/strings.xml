@@ -2,16 +2,29 @@
 <resources>
     <string name="app_name">Http Sync</string>
     <string name="action_settings">Settings</string>
+    <string name="positive">Okey</string>
+    <string name="negative">Cancel</string>
     <string name="add_button">Add a new job...</string>
     <string name="run_button">Run...</string>
     <string name="edit_button">Edit...</string>
+    <string name="delete_button">Delete</string>
     <string name="ok_button">OK</string>
     <string name="cancel_button">Cancel</string>
+    <string name="delete_dialog_title">You are about to delete a job.</string>
     <string name="url_label">URL (including &quot;http://&quot;)</string>
     <string name="directory_label">Destination directory</string>
     <string name="overwrite_label">
         Overwrite (if you hope to download a file always and overwrite existing
         one, check this)
+    </string>
+    <string name="delete_confirm_format">
+        You ordered me to delete the following job.\n\
+        \n\
+        Source: %1$s\n\
+        Destination: %2$s\n\
+        \n\
+        If you are okey, please push \&quot;%3$s\&quot;. If it is wrong, push
+        \&quot;%4$s\&quot;.
     </string>
 </resources>
 <!--
