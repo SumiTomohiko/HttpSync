@@ -38,12 +38,26 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-    private static class JobAdapter extends ArrayAdapter<Job> {
+    private class EditButtonOnClickListener implements View.OnClickListener {
 
-        private static class Holder {
+        private int mPosition;
+
+        public EditButtonOnClickListener(int position) {
+            mPosition = position;
+        }
+
+        public void onClick(View _) {
+            startEditActivity(mJobs[mPosition], REQUEST_EDIT);
+        }
+    }
+
+    private class JobAdapter extends ArrayAdapter<Job> {
+
+        private class Holder {
 
             public TextView url;
             public TextView directory;
+            public Button editButton;
         }
 
         private LayoutInflater mInflater;
@@ -64,11 +78,18 @@ public class MainActivity extends Activity {
             Job job = getItem(position);
             holder.url.setText(job.url);
             holder.directory.setText(job.directory);
+
+            holder.editButton.setOnClickListener(new EditButtonOnClickListener(position));
+
             return convertView;
         }
 
         private TextView findTextView(View view, int id) {
             return (TextView)view.findViewById(id);
+        }
+
+        private Button findButton(View view, int id) {
+            return (Button)view.findViewById(id);
         }
 
         private View makeView(ViewGroup parent) {
@@ -77,6 +98,7 @@ public class MainActivity extends Activity {
             Holder holder = new Holder();
             holder.url = findTextView(convertView, R.id.url_text);
             holder.directory = findTextView(convertView, R.id.directory_text);
+            holder.editButton = findButton(convertView, R.id.edit_button);
             convertView.setTag(holder);
             return convertView;
         }
@@ -331,7 +353,7 @@ public class MainActivity extends Activity {
     private class AddButtonOnClickListener implements View.OnClickListener {
 
         public void onClick(View _) {
-            startEditActivity();
+            startEditActivity(new Job(), REQUEST_ADD);
         }
     }
 
@@ -439,10 +461,10 @@ public class MainActivity extends Activity {
         return jobs.toArray(new Job[0]);
     }
 
-    private void startEditActivity() {
+    private void startEditActivity(Job job, int requestCode) {
         Intent i = new Intent(this, EditActivity.class);
-        i.putExtra(EditActivity.EXTRA_KEY_JOB, new Job());
-        startActivityForResult(i, REQUEST_ADD);
+        i.putExtra(EditActivity.EXTRA_KEY_JOB, job);
+        startActivityForResult(i, requestCode);
     }
 
     private ContentValues makeContentValuesOfJob(Job job) {
