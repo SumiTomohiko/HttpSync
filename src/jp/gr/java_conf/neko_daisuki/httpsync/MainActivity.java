@@ -246,7 +246,7 @@ public class MainActivity extends Activity {
             }
             catch (IOException e) {
                 String fmt = "HttpURLConnection.getInputStream() failed: %s";
-                Log.e(LOG_TAG, fmt.format(e.getMessage()));
+                Log.e(LOG_TAG, String.format(fmt, e.getMessage()));
                 return null;
             }
             InputStreamReader reader;
