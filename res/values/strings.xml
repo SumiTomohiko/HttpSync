@@ -9,7 +9,7 @@
     <string name="edit_button">Edit...</string>
     <string name="delete_button">Delete</string>
     <string name="delete_dialog_title">You are about to delete a job.</string>
-    <string name="url_label">URL (including &quot;http://&quot;)</string>
+    <string name="url_label">URL (including \&quot;http://\&quot;)</string>
     <string name="directory_label">Destination directory</string>
     <string name="overwrite_label">
         Overwrite (if you hope to download a file always and overwrite existing
