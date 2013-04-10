@@ -1,41 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
+    <import file="svg2png.xml"/>
+    <macrodef name="svg2icon">
+        <attribute name="dest"/>
+        <attribute name="size"/>
+        <sequential>
+            <svg2png dest="@{dest}" src="ic_launcher.svg" size="@{size}"/>
+        </sequential>
+    </macrodef>
+
     <target name="icon">
-        <exec executable="inkscape">
-            <arg value="--export-png"/>
-            <arg value="res/drawable-mdpi/ic_launcher.png"/>
-            <arg value="--export-height=48"/>
-            <arg value="--export-background-opacity=0.0"/>
-            <arg value="ic_launcher.svg"/>
-        </exec>
-        <exec executable="inkscape">
-            <arg value="--export-png"/>
-            <arg value="res/drawable-hdpi/ic_launcher.png"/>
-            <arg value="--export-height=72"/>
-            <arg value="--export-background-opacity=0.0"/>
-            <arg value="ic_launcher.svg"/>
-        </exec>
-        <exec executable="inkscape">
-            <arg value="--export-png"/>
-            <arg value="res/drawable-xhdpi/ic_launcher.png"/>
-            <arg value="--export-height=96"/>
-            <arg value="--export-background-opacity=0.0"/>
-            <arg value="ic_launcher.svg"/>
-        </exec>
-        <exec executable="inkscape">
-            <arg value="--export-png"/>
-            <arg value="res/drawable-xxhdpi/ic_launcher.png"/>
-            <arg value="--export-height=144"/>
-            <arg value="--export-background-opacity=0.0"/>
-            <arg value="ic_launcher.svg"/>
-        </exec>
-        <exec executable="inkscape">
-            <arg value="--export-png"/>
-            <arg value="ic_launcher-web.png"/>
-            <arg value="--export-height=512"/>
-            <arg value="--export-background-opacity=0.0"/>
-            <arg value="ic_launcher.svg"/>
-        </exec>
+        <svg2icon dest="res/drawable-mdpi/ic_launcher.png" size="48"/>
+        <svg2icon dest="res/drawable-hdpi/ic_launcher.png" size="72"/>
+        <svg2icon dest="res/drawable-xhdpi/ic_launcher.png" size="96"/>
+        <svg2icon dest="res/drawable-xxhdpi/ic_launcher.png" size="144"/>
+        <svg2icon dest="ic_launcher-web.png" size="512"/>
     </target>
 </project>
 <!--
