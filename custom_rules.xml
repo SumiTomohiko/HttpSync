@@ -8,12 +8,21 @@
             <svg2png dest="@{dest}" src="ic_launcher.svg" size="@{size}"/>
         </sequential>
     </macrodef>
+    <macrodef name="svg2drawable">
+        <attribute name="dpi"/>
+        <attribute name="size"/>
+        <sequential>
+            <svg2icon
+                dest="res/drawable-@{dpi}dpi/ic_launcher.png"
+                size="@{size}"/>
+        </sequential>
+    </macrodef>
 
     <target name="icon">
-        <svg2icon dest="res/drawable-mdpi/ic_launcher.png" size="48"/>
-        <svg2icon dest="res/drawable-hdpi/ic_launcher.png" size="72"/>
-        <svg2icon dest="res/drawable-xhdpi/ic_launcher.png" size="96"/>
-        <svg2icon dest="res/drawable-xxhdpi/ic_launcher.png" size="144"/>
+        <svg2drawable dpi="m" size="48"/>
+        <svg2drawable dpi="h" size="72"/>
+        <svg2drawable dpi="xh" size="96"/>
+        <svg2drawable dpi="xxh" size="144"/>
         <svg2icon dest="ic_launcher-web.png" size="512"/>
     </target>
 </project>
