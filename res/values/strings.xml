@@ -6,6 +6,7 @@
     <string name="negative">Cancel</string>
     <string name="add_button">Add a new job...</string>
     <string name="run_button">Run</string>
+    <string name="run_all_button">Run all</string>
     <string name="edit_button">Edit...</string>
     <string name="delete_button">Delete</string>
     <string name="delete_dialog_title">You are about to delete a job.</string>

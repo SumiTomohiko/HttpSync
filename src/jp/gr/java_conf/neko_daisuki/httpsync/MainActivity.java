@@ -76,6 +76,17 @@ public class MainActivity extends Activity {
         }
     }
 
+    private class RunButtonOnClickListener extends ListButtonOnClickListener {
+
+        public RunButtonOnClickListener(int position) {
+            super(position);
+        }
+
+        public void onClick(View _) {
+            synchronize(new Job[] { mJobs[mPosition] });
+        }
+    }
+
     private class EditButtonOnClickListener extends ListButtonOnClickListener {
 
         public EditButtonOnClickListener(int position) {
@@ -93,6 +104,7 @@ public class MainActivity extends Activity {
 
             public TextView url;
             public TextView directory;
+            public Button runButton;
             public Button editButton;
             public Button deleteButton;
         }
@@ -116,6 +128,7 @@ public class MainActivity extends Activity {
             holder.url.setText(job.url);
             holder.directory.setText(job.directory);
 
+            holder.runButton.setOnClickListener(new RunButtonOnClickListener(position));
             holder.editButton.setOnClickListener(new EditButtonOnClickListener(position));
             holder.deleteButton.setOnClickListener(new DeleteButtonOnClickListener(position));
 
@@ -136,6 +149,7 @@ public class MainActivity extends Activity {
             Holder holder = new Holder();
             holder.url = findTextView(convertView, R.id.url_text);
             holder.directory = findTextView(convertView, R.id.directory_text);
+            holder.runButton = findButton(convertView, R.id.run_button);
             holder.editButton = findButton(convertView, R.id.edit_button);
             holder.deleteButton = findButton(convertView, R.id.delete_button);
             convertView.setTag(holder);
@@ -406,10 +420,10 @@ public class MainActivity extends Activity {
         }
     }
 
-    private class RunButtonOnClickListener implements View.OnClickListener {
+    private class RunAllButtonOnClickListener implements View.OnClickListener {
 
         public void onClick(View _) {
-            new SynchronizeTask().execute(mJobs);
+            synchronize(mJobs);
         }
     }
 
@@ -446,8 +460,8 @@ public class MainActivity extends Activity {
         mJobList = (ListView)findViewById(R.id.job_list);
         Button addButton = (Button)findViewById(R.id.add_button);
         addButton.setOnClickListener(new AddButtonOnClickListener());
-        Button runButton = (Button)findViewById(R.id.run_button);
-        runButton.setOnClickListener(new RunButtonOnClickListener());
+        Button runAllButton = (Button)findViewById(R.id.run_all_button);
+        runAllButton.setOnClickListener(new RunAllButtonOnClickListener());
 
         mRequestProcedures = new SparseArray<RequestProcedure>();
         mRequestProcedures.put(REQUEST_ADD, new AddRequestProcedure());
@@ -568,6 +582,10 @@ public class MainActivity extends Activity {
         builder.setNegativeButton(R.string.negative, null);
 
         builder.create().show();
+    }
+
+    private void synchronize(Job[] jobs) {
+        new SynchronizeTask().execute(jobs);
     }
 }
 
