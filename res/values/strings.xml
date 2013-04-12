@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Application -->
     <string name="app_name">Http Sync</string>
-    <string name="action_settings">Settings</string>
+
+    <!-- Utility strings -->
     <string name="positive">Okey</string>
     <string name="negative">Cancel</string>
+
+    <!-- MainActivity -->
+    <string name="action_about">About...</string>
     <string name="add_button">Add a new job...</string>
-    <string name="run_button">Run</string>
     <string name="run_all_button">Run all</string>
+    <string name="run_button">Run</string>
     <string name="edit_button">Edit...</string>
     <string name="delete_button">Delete</string>
     <string name="delete_dialog_title">You are about to delete a job.</string>
-    <string name="url_label">URL (including \&quot;http://\&quot;)</string>
-    <string name="directory_label">Destination directory</string>
-    <string name="overwrite_label">
-        Overwrite (if you hope to download a file always and overwrite existing
-        one, check this)
-    </string>
     <string name="delete_confirm_format">
         You ordered me to delete the following job.\n\
         \n\
@@ -25,6 +24,42 @@
         If you are okey, please push \&quot;%3$s\&quot;. If it is wrong, push
         \&quot;%4$s\&quot;.
     </string>
+
+    <!-- EditActivity -->
+    <string name="url_label">URL (including \&quot;http://\&quot;)</string>
+    <string name="directory_label">Destination directory</string>
+    <string name="overwrite_label">
+        Overwrite (if you hope to download a file always and overwrite existing
+        one, check this)
+    </string>
+
+    <!-- AboutActivity -->
+    <string name="version_title">Version</string>
+    <string name="version_dummy">x.y.z</string>
+    <string name="authors_website_title">Author\'s Website</string>
+    <string name="url">
+        http://neko-daisuki.ddo.jp/~SumiTomohiko/index.html
+    </string>
+    <string name="license_title">License</string>
+    <string name="license">Copyright &#169; 2013 Tomohiko Sumi\n\
+\n\
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the \&quot;Software\&quot;),
+to deal in the Software without restriction, including without limitation the
+rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is furnished
+to do so, subject to the following conditions:\n\
+\n\
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.\n\
+\n\
+THE SOFTWARE IS PROVIDED \&quot;AS IS\&quot;, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</string>
 </resources>
 <!--
 vim: tabstop=4 shiftwidth=4 expandtab softtabstop=4
