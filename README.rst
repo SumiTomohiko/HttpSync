@@ -13,7 +13,7 @@ This application requires permissions to
 
 This application show you no advertises.
 
-This is open source software. Source code is available at
+This is open source software under the MIT lisence. Source code is available at
 `the author's website <http://neko-daisuki.ddo.jp/~SumiTomohiko/index.html>`.
 
 .. vim: tabstop=2 shiftwidth=2 expandtab softtabstop=2 filetype=rst
