@@ -6,3 +6,6 @@ all:
 
 clean:
 	@$(CMD) clean
+
+icon:
+	@$(CMD) icon
