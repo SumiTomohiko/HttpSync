@@ -10,6 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -270,8 +271,7 @@ public class MainActivity extends Activity {
                 reader = new InputStreamReader(in, encoding);
             }
             catch (UnsupportedEncodingException e) {
-                String fmt = "Cannot handle encoding %s: %s";
-                Log.e(LOG_TAG, String.format(fmt, encoding, e.getMessage()));
+                logUnsupportedEncodingException(e, encoding);
                 return null;
             }
             String html = "";
@@ -336,6 +336,11 @@ public class MainActivity extends Activity {
             return list.toArray(new String[0]);
         }
 
+        private void logUnsupportedEncodingException(UnsupportedEncodingException e, String encoding) {
+            String fmt = "Cannot handle encoding %s: %s";
+            Log.e(LOG_TAG, String.format(fmt, encoding, e.getMessage()));
+        }
+
         private void download(Job job, String link) {
             String base = job.url;
             String url = String.format("%s/%s", base, link);
@@ -343,7 +348,16 @@ public class MainActivity extends Activity {
             if (conn == null) {
                 return;
             }
-            String name = new File(link).getName();
+            String encoding = "UTF-8";
+            String encodedName = new File(link).getName();
+            String name;
+            try {
+                name = URLDecoder.decode(encodedName, encoding);
+            }
+            catch (UnsupportedEncodingException e) {
+                logUnsupportedEncodingException(e, encoding);
+                return;
+            }
             String dir = job.directory;
             String path = String.format("%s%s%s", dir, File.separator, name);
             if (!job.overwrite && new File(path).exists()) {
