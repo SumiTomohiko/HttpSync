@@ -318,8 +318,8 @@ public class MainActivity extends Activity {
 
         private List<String> listOfLink(String link) {
             String[] extensions = new String[] {
-                ".mp3", ".mp4", ".apk", ".tar", ".xz", ".bz2", ".gzip", ".zip"
-            };
+                ".mp3", ".mp4", ".apk", ".tar", ".xz", ".bz2", ".gzip", ".zip",
+                "pdf" };
             boolean isTarget = false;
             for (int i = 0; (i < extensions.length) && !isTarget; i++) {
                 isTarget = link.endsWith(extensions[i]);
