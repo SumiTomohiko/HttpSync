@@ -40,6 +40,7 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -224,6 +225,11 @@ public class MainActivity extends Activity {
             run(jobs[0]);
             Log.i(LOG_TAG, "Synchronizing ended.");
             return null;
+        }
+
+        protected void onPostExecute(Void result) {
+            String msg = "HttpSync: Synchronizing ended.";
+            Toast.makeText(MainActivity.this, msg, Toast.LENGTH_LONG).show();
         }
 
         private HttpURLConnection connect(String url) {
